@@ -1,0 +1,125 @@
+// _components.scss — a few optional classed components (tabs, card, layout, page sections).
+@use "sass:list";
+@use "sass:map";
+@use "tokens" as t;
+
+// ===== Tabs =====
+
+// Horizontal tabs: active tab is bold with a blue underline.
+.tabs { display: flex; gap: var(--space-4); list-style: none; padding: 0; margin: 0 0 var(--space-4); }
+.tabs li { margin: 0; }
+.tabs a {
+  display: block; padding-bottom: var(--space-1);
+  color: var(--muted); text-decoration: none;
+  border-bottom: 3px solid transparent;
+  &:hover { color: var(--ink); border-bottom-color: rgba(123, 185, 250, 0.4); }
+  &.active, &[aria-selected="true"] { color: var(--ink); font-weight: 700; border-bottom-color: var(--accent); }
+}
+
+// Vertical tabs: blue bar on the left.
+.tabs-vertical { flex-direction: column; gap: 0; }
+.tabs-vertical a {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 0; border-left: 3px solid transparent;
+  &:hover { border-left-color: rgba(123, 185, 250, 0.4); }
+  &.active, &[aria-selected="true"] { border-left-color: var(--accent); }
+}
+
+// ===== Cards, badges, alerts =====
+
+.card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  box-shadow: 0 2px 12px rgba(40, 40, 40, 0.06);
+  border: t.$border-width solid var(--grey-light);
+  > :last-child { margin-bottom: 0; }
+}
+.card-surface { background: var(--surface); padding: var(--space-5); border: 0; box-shadow: none; }
+
+.badge {
+  display: inline-block; padding: 0 var(--space-2);
+  font-size: 12px; line-height: 22px; font-weight: 600;
+  background: var(--cream); color: var(--brand);
+  border-radius: t.$radius-pill;
+}
+
+.alert {
+  padding: var(--space-2) var(--space-3); margin-bottom: var(--space-3);
+  border-left: 3px solid var(--accent); background: var(--cream); border-radius: var(--radius);
+  &.alert-error { border-left-color: var(--brand); }
+}
+
+// ===== Layout =====
+
+.container { width: 100%; max-width: t.$container-width; margin-inline: auto; padding-inline: var(--space-3); }
+
+.row { display: flex; flex-wrap: wrap; gap: var(--space-4); }
+.row > * { flex: 1 1 240px; }
+
+.grid { display: grid; gap: var(--space-4); grid-template-columns: 1fr;
+  @include t.breakpoint("md") { &.grid-2 { grid-template-columns: repeat(2, 1fr); } &.grid-3 { grid-template-columns: repeat(3, 1fr); } }
+}
+
+.navbar { background: var(--white); border-bottom: t.$border-width solid var(--grey-light); padding: var(--space-3) 0; }
+.navbar .container { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); flex-wrap: wrap; }
+.navbar-brand { font-weight: 700; font-size: 18px; text-decoration: none; color: var(--brand); }
+
+// ===== Page sections =====
+
+// Page-level pieces: header, hero/intro, section headings, card grid, details, footer.
+.site-header {
+  background: var(--white);
+  border-bottom: t.$border-width solid var(--grey-light);
+  padding: var(--space-3) 0;
+}
+.header-row { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); flex-wrap: wrap; }
+.wordmark { font-weight: 700; font-size: 18px; text-decoration: none; color: var(--brand); &:hover { color: var(--ink); } }
+
+.eyebrow {
+  margin-bottom: var(--space-2);
+  font-size: 12px; line-height: 18px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--brand);
+}
+
+.intro {
+  margin: var(--space-4) 0 var(--space-6);
+  padding: var(--space-5) var(--space-4);
+  background: var(--cream);
+  border-radius: t.$radius-lg;
+  @include t.breakpoint("md") { padding: var(--space-6); }
+  p:not(.eyebrow) { max-width: 560px; font-size: 16px; }
+  .button { margin-top: var(--space-2); }
+}
+
+.section-heading { margin-bottom: var(--space-4); h2 { margin-bottom: var(--space-1); } p:not(.eyebrow) { color: var(--muted); } }
+
+.workshop-grid {
+  display: grid; gap: var(--space-4); grid-template-columns: 1fr;
+  @include t.breakpoint("md") { grid-template-columns: repeat(3, 1fr); }
+}
+
+.card {
+  h2, h3 { font-size: 18px; line-height: 22px; margin-bottom: var(--space-2); }
+  .meta { color: var(--muted); font-size: 12px; }
+}
+
+details {
+  border-top: t.$border-width solid var(--grey-light);
+  padding-top: var(--space-2);
+  summary {
+    cursor: pointer; font-weight: 700; list-style: none; color: var(--ink);
+    &::-webkit-details-marker { display: none; }
+    &::before { content: "+"; display: inline-block; width: 18px; color: var(--brand); }
+    &:hover { color: var(--brand); }
+    &:focus-visible { @include t.focus-ring; }
+  }
+  &[open] summary::before { content: "–"; }
+  p { margin: var(--space-2) 0 0; color: var(--muted); }
+}
+
+footer { margin-top: var(--space-6); padding-top: var(--space-4); padding-bottom: var(--space-4); border-top: t.$border-width solid var(--grey-light); color: var(--muted); font-size: 12px; }
+main { padding-bottom: var(--space-4); }
+section + section { margin-top: var(--space-6); }
+

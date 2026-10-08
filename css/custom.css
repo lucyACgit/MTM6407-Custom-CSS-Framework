@@ -1,0 +1,10 @@
+/* custom.css — loaded AFTER framework.css. Override tokens here; no Sass needed.
+   Uncomment to try a blue theme: */
+
+/*
+:root {
+  --brand: #2a6fdb;
+  --brand-hover: #6a9ae5;
+  --brand-disabled: #bfd3f4;
+}
+*/

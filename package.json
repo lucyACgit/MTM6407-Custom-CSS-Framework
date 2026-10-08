@@ -1,0 +1,14 @@
+{
+  "name": "coralkit",
+  "version": "1.0.0",
+  "description": "CoralKit — a small Sass CSS framework built from the Basic Design System Figma file.",
+  "style": "css/framework.css",
+  "sass": "scss/framework.scss",
+  "files": ["scss", "css"],
+  "scripts": {
+    "build": "sass --no-source-map scss/framework.scss css/framework.css && sass --no-source-map --style=compressed scss/framework.scss css/framework.min.css",
+    "watch": "sass --watch scss/framework.scss css/framework.css"
+  },
+  "license": "MIT",
+  "devDependencies": { "sass": "^1.80.0" }
+}

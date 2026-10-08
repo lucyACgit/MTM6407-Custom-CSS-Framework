@@ -1,0 +1,11 @@
+// framework.scss — CoralKit entry point. Compiles to css/framework.css.
+// Forwarding the tokens lets users configure them:
+//   @use "framework" with ($brand: #2a6fdb);
+@forward "tokens";
+
+@use "tokens";
+@use "base";
+@use "components";
+@use "utilities";   // keep last so utilities can override everything above
+
+@include tokens.custom-properties;

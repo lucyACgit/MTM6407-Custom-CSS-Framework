@@ -1,0 +1,63 @@
+// _utilities.scss — small single-purpose classes, generated from the token maps.
+// Combine them on one element:  <p class="u-weight-bold u-p-3 u-border">
+// They are loaded last and have the same specificity as component classes,
+// so source order lets them win. No !important is needed.
+@use "tokens" as t;
+
+// --- Color ------------------------------------------------------------------
+@each $name, $value in t.$theme-colors {
+  .u-text-#{$name}   { color: var(--#{$name}); }
+  .u-bg-#{$name}     { background-color: var(--#{$name}); }
+  .u-border-#{$name} { border-color: var(--#{$name}); }
+}
+
+// --- Font weight & size -------------------------------------------------------
+@each $name, $value in t.$font-weights { .u-weight-#{$name} { font-weight: $value; } }
+@each $name, $value in t.$font-sizes   { .u-size-#{$name}   { font-size: $value; } }
+
+// --- Spacing: spacing step 3 = 0.9375rem, so .u-p-3 { padding: 0.9375rem } -----
+$sides: ("t": "top", "r": "right", "b": "bottom", "l": "left");
+@each $step, $size in t.$spacers {
+  .u-m-#{$step}  { margin: $size; }
+  .u-p-#{$step}  { padding: $size; }
+  .u-mx-#{$step} { margin-inline: $size; }
+  .u-my-#{$step} { margin-block: $size; }
+  .u-px-#{$step} { padding-inline: $size; }
+  .u-py-#{$step} { padding-block: $size; }
+  @each $s, $prop in $sides {
+    .u-m#{$s}-#{$step} { margin-#{$prop}: $size; }
+    .u-p#{$s}-#{$step} { padding-#{$prop}: $size; }
+  }
+  .u-gap-#{$step} { gap: $size; }
+}
+.u-mx-auto { margin-inline: auto; }
+
+// --- Border -----------------------------------------------------------------
+.u-border { border: t.$border-width solid var(--border-color); }
+@each $s, $prop in $sides { .u-border-#{$s} { border-#{$prop}: t.$border-width solid var(--border-color); } }
+.u-border-0 { border: 0; }
+.u-border-2 { border-width: 2px; border-style: solid; }
+.u-rounded      { border-radius: var(--radius); }
+.u-rounded-lg   { border-radius: var(--radius-lg); }
+.u-rounded-pill { border-radius: t.$radius-pill; }
+.u-rounded-0    { border-radius: 0; }
+
+// --- Text, display & misc -------------------------------------------------------
+.u-text-left   { text-align: left; }
+.u-text-center { text-align: center; }
+.u-text-right  { text-align: right; }
+.u-uppercase   { text-transform: uppercase; letter-spacing: 0.04em; }
+.u-underline   { text-decoration: underline; }
+.u-no-underline { text-decoration: none; }
+.u-hidden  { display: none; }
+.u-block   { display: block; }
+.u-flex    { display: flex; }
+.u-grid    { display: grid; }
+.u-flex-column  { flex-direction: column; }
+.u-flex-wrap    { flex-wrap: wrap; }
+.u-justify-between { justify-content: space-between; }
+.u-justify-center  { justify-content: center; }
+.u-align-center    { align-items: center; }
+.u-w-100  { width: 100%; }
+.u-shadow { box-shadow: 0 2px 12px rgba(40, 40, 40, 0.1); }
+.u-visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
